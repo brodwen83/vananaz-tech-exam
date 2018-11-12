@@ -8,18 +8,28 @@ import {
 } from "react-native";
 
 export class LogInForm extends Component {
+  state = {
+    errors: {
+      email: "email errors here",
+      password: "password error here"
+    }
+  };
   render() {
+    const {
+      errors: { email, password }
+    } = this.state;
     return (
       <View style={[styles.stretch, styles.formContainer]}>
-        <View>
+        <View style={styles.formGroup}>
           <Text style={styles.label}>Email</Text>
           <TextInput
             style={styles.textInput}
             underlineColorAndroid={"transparent"}
             placeholder="Input email address"
           />
+          <Text style={styles.textError}>{email}</Text>
         </View>
-        <View>
+        <View style={styles.formGroup}>
           <Text style={styles.label}>Password</Text>
           <TextInput
             secureTextEntry={true}
@@ -27,8 +37,9 @@ export class LogInForm extends Component {
             underlineColorAndroid={"transparent"}
             placeholder="Input password"
           />
+          <Text style={styles.textError}>{password}</Text>
         </View>
-        <View>
+        <View style={styles.formGroup}>
           <TouchableOpacity style={[styles.stretch, styles.button]}>
             <Text style={styles.signInBtnText}>Sign in</Text>
           </TouchableOpacity>
@@ -48,10 +59,12 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   formContainer: {
-    marginTop: 80
+    marginTop: 60
+  },
+  formGroup: {
+    marginBottom: 15
   },
   textInput: {
-    marginBottom: 20,
     padding: 15,
     borderColor: "#714db2",
     borderWidth: 1,
@@ -68,6 +81,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "500"
+  },
+  textError: {
+    color: "red",
+    fontStyle: "italic"
   }
 });
 
