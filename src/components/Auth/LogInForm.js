@@ -8,6 +8,8 @@ import {
   Alert
 } from "react-native";
 
+import Validator from "validator";
+
 export class LogInForm extends Component {
   state = {
     data: {
@@ -34,10 +36,14 @@ export class LogInForm extends Component {
 
   validate = data => {
     const errors = {};
+    if (!Validator.isEmail(data.email))
+      errors.email = "not correct format for email address";
+
     if (!data.password) {
       errors.password = "Password can't be blank";
       return errors;
     }
+
     if (data.password.length < 6 || data.password.length > 12)
       errors.password = "please use at least 6 - 12 characters";
 
