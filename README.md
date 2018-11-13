@@ -12,10 +12,12 @@ Shows error under these conditions: <br/>
 <br/>
 
 Dependencies:
+<pre>
 "expo": "^31.0.2",
 "react": "16.5.0",
 "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
 "validator": "^10.9.0"
+</pre>
 
 
 How to: <br/>
