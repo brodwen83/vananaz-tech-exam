@@ -2,7 +2,7 @@
 
 REACT NATIVE EXAM
 
-$ npm install 
+$ npm install <br/>
 $ expo start
 
 General Instructions: (PLEASE READ ALL CAREFULLY)
