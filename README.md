@@ -22,8 +22,10 @@ Dependencies:
 
 How to: <br/>
 <code>
-$ npm install <br/>
-$ expo start
+ $ npm install 
+</code>
+<code>
+ $ expo start
 </code>
 
 
