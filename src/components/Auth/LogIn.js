@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput, Image } from "react-native";
+import { View, Text, StyleSheet, TextInput, Image, Alert } from "react-native";
 import LogInForm from "./LogInForm";
 import Logo from "../img/Logo.png";
 
@@ -9,11 +9,15 @@ class LogIn extends Component {
     this.state = {};
   }
 
+  submit = data => {
+    Alert.alert("LOGIN SUCCESS!");
+  };
+
   render() {
     return (
       <View style={styles.loginContainer}>
         <Image source={Logo} />
-        <LogInForm />
+        <LogInForm submit={this.submit} />
       </View>
     );
   }

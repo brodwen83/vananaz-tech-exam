@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   Text,
   View,
@@ -32,43 +33,59 @@ export class LogInForm extends Component {
 
   onSubmit = () => {
     const { data } = this.state;
-    this.validateEmail(data);
-    this.validatePassword(data);
-    if (this.state.loginSuccess) {
-      Alert.alert("Login Success!");
-      this.setState({ loginSuccess: false });
+    const errors = this.validate(data);
+    this.setState({ errors });
+
+    //if all validated, pass the data to the parent component class
+    if (Object.keys(errors).length === 0) {
+      this.props.submit(this.state.data);
     }
   };
 
-  validateEmail = data => {
-    let errorMessage = "";
-    let loginSuccess = false;
+  // validateEmail = data => {
+  //   const errors = {};
+  //   if (Validator.isEmpty(data.email)) {
+  //     errors.email = "email is required";
+  //   } else if (!Validator.isEmail(data.email)) {
+  //     errors.email = "not correct format for email address";
+  //   }
+
+  //   // this.setState(prevState => ({
+  //   //   errors: { ...prevState.errors, ["email"]: errors.email }
+  //   // }));
+
+  //   return errors;
+  // };
+
+  // validatePassword = data => {
+  //   const errors = {};
+  //   if (!data.password) {
+  //     errors.password = "Password can't be blank";
+  //   } else if (data.password.length < 6 || data.password.length > 12) {
+  //     errors.password = "please use at least 6 - 12 characters";
+  //   }
+
+  //   // this.setState(prevState => ({
+  //   //   errors: { ...prevState.errors, ["password"]: errors.password }
+  //   // }));
+
+  //   return errors;
+  // };
+
+  validate = data => {
+    const errors = {};
     if (Validator.isEmpty(data.email)) {
-      errorMessage = "email is required";
+      errors.email = "email is required";
     } else if (!Validator.isEmail(data.email)) {
-      errorMessage = "not correct format for email address";
-    } else loginSuccess = true;
-    this.setState(prevState => ({
-      errors: { ...prevState.errors, ["email"]: errorMessage },
-      loginSuccess
-    }));
-  };
-
-  validatePassword = data => {
-    let errorMessage = "";
-    let loginSuccess = false;
+      errors.email = "not correct format for email address";
+    }
     if (!data.password) {
-      errorMessage = "Password can't be blank";
+      errors.password = "Password can't be blank";
     } else if (data.password.length < 6 || data.password.length > 12) {
-      errorMessage = "please use at least 6 - 12 characters";
-    } else loginSuccess = true;
-    this.setState(prevState => ({
-      errors: { ...prevState.errors, ["password"]: errorMessage },
-      loginSuccess
-    }));
+      errors.password = "please use at least 6 - 12 characters";
+    }
+    return errors;
   };
-
-  validate = data => {};
 
   displayFormState = () => {
     this.onSubmit();
@@ -84,32 +101,45 @@ export class LogInForm extends Component {
   render() {
     const {
       data: { email, password },
-      errors
+      errors,
+      data,
+      loginSuccess
     } = this.state;
     return (
       <View style={[styles.stretch, styles.formContainer]}>
+        <View>
+          <Text>email: {email}</Text>
+          <Text>password: {password}</Text>
+          <Text>errors.email: {errors.email}</Text>
+          <Text>errors.password: {errors.password}</Text>
+          <Text>loginSuccess: {loginSuccess.toString()}</Text>
+        </View>
         <View style={styles.formGroup}>
           <Text style={styles.label}>Email</Text>
           <TextInput
+            value={email}
             style={styles.textInput}
             underlineColorAndroid={"transparent"}
             placeholder="Input email address"
             onChangeText={text => this.handleChange("email", text)}
-            onBlur={() => this.validateEmail(this.state.data)}
+            onBlur={() => this.onSubmit()}
           />
-          <Text style={styles.textError}>{errors.email}</Text>
+          {errors.email && <Text style={styles.textError}>{errors.email}</Text>}
         </View>
         <View style={styles.formGroup}>
           <Text style={styles.label}>Password</Text>
           <TextInput
+            value={password}
             secureTextEntry={true}
             style={[styles.stretch, styles.textInput]}
             underlineColorAndroid={"transparent"}
             placeholder="Input password"
             onChangeText={text => this.handleChange("password", text)}
-            onBlur={() => this.validatePassword(this.state.data)}
+            onBlur={() => this.onSubmit()}
           />
-          <Text style={styles.textError}>{errors.password}</Text>
+          {errors.password && (
+            <Text style={styles.textError}>{errors.password}</Text>
+          )}
         </View>
         <View style={styles.formGroup}>
           <TouchableOpacity
@@ -163,5 +193,9 @@ const styles = StyleSheet.create({
     fontStyle: "italic"
   }
 });
+
+LogInForm.propTypes = {
+  submit: PropTypes.func.isRequired
+};
 
 export default LogInForm;
