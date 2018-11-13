@@ -2,6 +2,9 @@
 
 REACT NATIVE EXAM
 
+$ npm install
+$ expo start
+
 General Instructions: (PLEASE READ ALL CAREFULLY)
 
 You are given SEVEN (7) DAYS to complete this exam. 
