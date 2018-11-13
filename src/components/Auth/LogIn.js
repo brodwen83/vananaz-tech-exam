@@ -10,7 +10,10 @@ class LogIn extends Component {
   }
 
   submit = data => {
-    Alert.alert("LOGIN SUCCESS!");
+    Alert.alert(
+      "LOGIN SUCCESS!",
+      `email: ${data.email}, password: ${data.password}`
+    );
   };
 
   render() {

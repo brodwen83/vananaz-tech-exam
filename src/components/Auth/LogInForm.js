@@ -19,6 +19,7 @@ export class LogInForm extends Component {
     },
     // loading: false,
     loginSuccess: false,
+    disableSubmitBtn: false,
     errors: {
       // email: "",
       // password: ""
@@ -29,6 +30,11 @@ export class LogInForm extends Component {
     this.setState(prevState => ({
       data: { ...prevState.data, [holder]: text }
     }));
+    this.enableSubmitButton();
+  };
+
+  enableSubmitButton = () => {
+    this.setState({ disableSubmitBtn: false });
   };
 
   onSubmit = () => {
@@ -36,9 +42,12 @@ export class LogInForm extends Component {
     const errors = this.validate(data);
     this.setState({ errors });
 
-    //if all validated, pass the data to the parent component class
+    //if all validated, pass the data to the parent component class and clear the inputs
     if (Object.keys(errors).length === 0) {
+      const data = { email: "", password: "" };
       this.props.submit(this.state.data);
+    } else {
+      this.setState({ disableSubmitBtn: true });
     }
   };
 
@@ -103,7 +112,8 @@ export class LogInForm extends Component {
       data: { email, password },
       errors,
       data,
-      loginSuccess
+      loginSuccess,
+      disableSubmitBtn
     } = this.state;
     return (
       <View style={[styles.stretch, styles.formContainer]}>
@@ -123,6 +133,7 @@ export class LogInForm extends Component {
             placeholder="Input email address"
             onChangeText={text => this.handleChange("email", text)}
             onBlur={() => this.onSubmit()}
+            onFocus={this.enableSubmitButton}
           />
           {errors.email && <Text style={styles.textError}>{errors.email}</Text>}
         </View>
@@ -136,6 +147,7 @@ export class LogInForm extends Component {
             placeholder="Input password"
             onChangeText={text => this.handleChange("password", text)}
             onBlur={() => this.onSubmit()}
+            onFocus={this.enableSubmitButton}
           />
           {errors.password && (
             <Text style={styles.textError}>{errors.password}</Text>
@@ -145,7 +157,12 @@ export class LogInForm extends Component {
           <TouchableOpacity
             // onPress={this.displayFormState}
             onPress={this.onSubmit}
-            style={[styles.stretch, styles.button]}
+            style={[
+              styles.stretch,
+              styles.button,
+              disableSubmitBtn ? { backgroundColor: "rgba(0,0,0,0.2)" } : null
+            ]}
+            disabled={disableSubmitBtn}
           >
             <Text style={styles.signInBtnText}>Sign in</Text>
           </TouchableOpacity>
