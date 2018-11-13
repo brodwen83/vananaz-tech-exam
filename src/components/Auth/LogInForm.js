@@ -30,8 +30,7 @@ export class LogInForm extends Component {
   };
 
   onSubmit = () => {
-    const errors = this.validate(this.state.data);
-    this.setState({ errors });
+    this.validate(this.state.data);
   };
 
   validateEmail = data => {
@@ -56,17 +55,14 @@ export class LogInForm extends Component {
   };
 
   validate = data => {
-    const errors = {};
-    errors = this.validateEmail(data);
-    errors = this.validatePassword(data);
-
-    return errors;
+    this.validateEmail(data);
+    this.validatePassword(data);
   };
 
   displayFormState = () => {
     Alert.alert("Login form states", "Tha data: ", [
-      { text: `Email: ${this.state.data.email}` },
-      { text: this.state.data.password }
+      { text: `errors in email: ${this.state.errors.email}` },
+      { text: `errors in password: ${this.state.errors.password}` }
     ]);
   };
 
