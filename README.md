@@ -7,7 +7,7 @@ General Instructions: (PLEASE READ ALL CAREFULLY)
 You are given SEVEN (7) DAYS to complete this exam. 
 We will give you reference links below which will help you complete the exam. 
 Use Github and make a repository on your account and push the source code there.
-Email the link of your repository to kate@vananaz.com when done.
+Email the link of your repository to kate[at]vananaz.com when done.
 
 Exam instructions:
 
