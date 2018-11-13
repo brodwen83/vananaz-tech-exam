@@ -34,18 +34,31 @@ export class LogInForm extends Component {
     this.setState({ errors });
   };
 
-  validate = data => {
+  validateEmail = data => {
     const errors = {};
     if (!Validator.isEmail(data.email))
       errors.email = "not correct format for email address";
+    this.setState(prevState => ({
+      errors: { ...prevState.errors, ["email"]: errors.email }
+    }));
+  };
 
+  validatePassword = data => {
+    const errors = {};
     if (!data.password) {
       errors.password = "Password can't be blank";
-      return errors;
-    }
-
-    if (data.password.length < 6 || data.password.length > 12)
+    } else if (data.password.length < 6 || data.password.length > 12)
       errors.password = "please use at least 6 - 12 characters";
+
+    this.setState(prevState => ({
+      errors: { ...prevState.errors, ["password"]: errors.password }
+    }));
+  };
+
+  validate = data => {
+    const errors = {};
+    errors = this.validateEmail(data);
+    errors = this.validatePassword(data);
 
     return errors;
   };
@@ -71,6 +84,7 @@ export class LogInForm extends Component {
             underlineColorAndroid={"transparent"}
             placeholder="Input email address"
             onChangeText={text => this.handleChange("email", text)}
+            onBlur={() => this.validateEmail(this.state.data)}
           />
           <Text style={styles.textError}>{errors.email}</Text>
         </View>
@@ -82,13 +96,14 @@ export class LogInForm extends Component {
             underlineColorAndroid={"transparent"}
             placeholder="Input password"
             onChangeText={text => this.handleChange("password", text)}
+            onBlur={() => this.validatePassword(this.state.data)}
           />
           <Text style={styles.textError}>{errors.password}</Text>
         </View>
         <View style={styles.formGroup}>
           <TouchableOpacity
-            // onPress={this.displayFormState}
-            onPress={this.onSubmit}
+            onPress={this.displayFormState}
+            // onPress={this.onSubmit}
             style={[styles.stretch, styles.button]}
           >
             <Text style={styles.signInBtnText}>Sign in</Text>
