@@ -46,6 +46,7 @@ export class LogInForm extends Component {
     if (Object.keys(errors).length === 0) {
       const data = { email: "", password: "" };
       this.props.submit(this.state.data);
+      this.setState({ data });
     } else {
       this.setState({ disableSubmitBtn: true });
     }
@@ -117,13 +118,17 @@ export class LogInForm extends Component {
     } = this.state;
     return (
       <View style={[styles.stretch, styles.formContainer]}>
+        {/* 
+        // For debugging. watching all states
         <View>
           <Text>email: {email}</Text>
           <Text>password: {password}</Text>
           <Text>errors.email: {errors.email}</Text>
           <Text>errors.password: {errors.password}</Text>
           <Text>loginSuccess: {loginSuccess.toString()}</Text>
-        </View>
+        </View> 
+        */}
+
         <View style={styles.formGroup}>
           <Text style={styles.label}>Email</Text>
           <TextInput
