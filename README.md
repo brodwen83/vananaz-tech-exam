@@ -30,11 +30,11 @@ How to: <br/>
 
 Reference Links
 
-React Native: http://facebook.github.io/react-native/
- 		         https://facebook.github.io/react-native/docs/getting-started.html
-Use Expo.io for building Develop environment: https://docs.expo.io/versions/latest/
+React Native: http://facebook.github.io/react-native/<br/>
+ 		         https://facebook.github.io/react-native/docs/getting-started.html<br/>
+Use Expo.io for building Develop environment: https://docs.expo.io/versions/latest/<br/><br/>
 
-Styling Guide: https://github.com/vhpoet/react-native-styling-cheat-sheet
-Redux: https://blog.cloudboost.io/getting-started-with-react-native-and-redux-6cd4addeb29
-Guide: https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter
-JS Standards: https://github.com/airbnb/javascript
+Styling Guide: https://github.com/vhpoet/react-native-styling-cheat-sheet<br/>
+Redux: https://blog.cloudboost.io/getting-started-with-react-native-and-redux-6cd4addeb29<br/>
+Guide: https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter<br/>
+JS Standards: https://github.com/airbnb/javascript<br/>
