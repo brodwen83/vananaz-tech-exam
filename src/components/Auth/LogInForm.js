@@ -17,7 +17,7 @@ export class LogInForm extends Component {
       password: ""
     },
     // loading: false,
-    loginSuccess: true,
+    loginSuccess: false,
     errors: {
       // email: "",
       // password: ""
@@ -25,36 +25,46 @@ export class LogInForm extends Component {
   };
 
   handleChange = (holder, text) => {
-    this.setState({
-      data: { ...this.state.data, [holder]: text }
-    });
+    this.setState(prevState => ({
+      data: { ...prevState.data, [holder]: text }
+    }));
   };
 
   onSubmit = () => {
     const { data } = this.state;
     this.validateEmail(data);
     this.validatePassword(data);
+    if (this.state.loginSuccess) {
+      Alert.alert("Login Success!");
+      this.setState({ loginSuccess: false });
+    }
   };
 
   validateEmail = data => {
-    const errors = {};
-    if (Validator.isEmpty(data.email)) errors.email = "email is required";
-    else if (!Validator.isEmail(data.email))
-      errors.email = "not correct format for email address";
-
+    let errorMessage = "";
+    let loginSuccess = false;
+    if (Validator.isEmpty(data.email)) {
+      errorMessage = "email is required";
+    } else if (!Validator.isEmail(data.email)) {
+      errorMessage = "not correct format for email address";
+    } else loginSuccess = true;
     this.setState(prevState => ({
-      errors: { ...prevState.errors, ["email"]: errors.email }
+      errors: { ...prevState.errors, ["email"]: errorMessage },
+      loginSuccess
     }));
   };
 
   validatePassword = data => {
-    const errors = {};
-    if (!data.password) errors.password = "Password can't be blank";
-    else if (data.password.length < 6 || data.password.length > 12)
-      errors.password = "please use at least 6 - 12 characters";
-
+    let errorMessage = "";
+    let loginSuccess = false;
+    if (!data.password) {
+      errorMessage = "Password can't be blank";
+    } else if (data.password.length < 6 || data.password.length > 12) {
+      errorMessage = "please use at least 6 - 12 characters";
+    } else loginSuccess = true;
     this.setState(prevState => ({
-      errors: { ...prevState.errors, ["password"]: errors.password }
+      errors: { ...prevState.errors, ["password"]: errorMessage },
+      loginSuccess
     }));
   };
 
@@ -63,6 +73,8 @@ export class LogInForm extends Component {
   displayFormState = () => {
     this.onSubmit();
     Alert.alert("Login form states", "Tha data: ", [
+      { text: `email: ${this.state.data.email}` },
+      { text: `password: ${this.state.data.password}` },
       { text: `errors in email: ${this.state.errors.email}` },
       { text: `errors in password: ${this.state.errors.password}` },
       { text: `LoginSuccessful? : ${this.state.loginSuccess}` }
