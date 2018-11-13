@@ -16,10 +16,15 @@ export class LogInForm extends Component {
       email: "",
       password: ""
     },
+<<<<<<< HEAD
     loginSuccess: false,
+=======
+    // loading: false,
+    loginSuccess: true,
+>>>>>>> de6cf24be23ebacf624eb460bbbb0448bc833801
     errors: {
-      // email: "email errors here",
-      // password: "password error here"
+      // email: "",
+      // password: ""
     }
   };
 
@@ -30,13 +35,17 @@ export class LogInForm extends Component {
   };
 
   onSubmit = () => {
-    this.validate(this.state.data);
+    const { data } = this.state;
+    this.validateEmail(data);
+    this.validatePassword(data);
   };
 
   validateEmail = data => {
     const errors = {};
-    if (!Validator.isEmail(data.email))
+    if (Validator.isEmpty(data.email)) errors.email = "email is required";
+    else if (!Validator.isEmail(data.email))
       errors.email = "not correct format for email address";
+
     this.setState(prevState => ({
       errors: { ...prevState.errors, ["email"]: errors.email }
     }));
@@ -44,9 +53,8 @@ export class LogInForm extends Component {
 
   validatePassword = data => {
     const errors = {};
-    if (!data.password) {
-      errors.password = "Password can't be blank";
-    } else if (data.password.length < 6 || data.password.length > 12)
+    if (!data.password) errors.password = "Password can't be blank";
+    else if (data.password.length < 6 || data.password.length > 12)
       errors.password = "please use at least 6 - 12 characters";
 
     this.setState(prevState => ({
@@ -54,15 +62,14 @@ export class LogInForm extends Component {
     }));
   };
 
-  validate = data => {
-    this.validateEmail(data);
-    this.validatePassword(data);
-  };
+  validate = data => {};
 
   displayFormState = () => {
+    this.onSubmit();
     Alert.alert("Login form states", "Tha data: ", [
       { text: `errors in email: ${this.state.errors.email}` },
-      { text: `errors in password: ${this.state.errors.password}` }
+      { text: `errors in password: ${this.state.errors.password}` },
+      { text: `LoginSuccessful? : ${this.state.loginSuccess}` }
     ]);
   };
 
@@ -98,8 +105,8 @@ export class LogInForm extends Component {
         </View>
         <View style={styles.formGroup}>
           <TouchableOpacity
-            onPress={this.displayFormState}
-            // onPress={this.onSubmit}
+            // onPress={this.displayFormState}
+            onPress={this.onSubmit}
             style={[styles.stretch, styles.button]}
           >
             <Text style={styles.signInBtnText}>Sign in</Text>
