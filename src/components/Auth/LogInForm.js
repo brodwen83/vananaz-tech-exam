@@ -16,7 +16,7 @@ export class LogInForm extends Component {
       email: "",
       password: ""
     },
-    loading: false,
+    loginSuccess: false,
     errors: {
       // email: "email errors here",
       // password: "password error here"
