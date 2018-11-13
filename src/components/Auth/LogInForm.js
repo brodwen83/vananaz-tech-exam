@@ -16,12 +16,8 @@ export class LogInForm extends Component {
       email: "",
       password: ""
     },
-<<<<<<< HEAD
-    loginSuccess: false,
-=======
     // loading: false,
     loginSuccess: true,
->>>>>>> de6cf24be23ebacf624eb460bbbb0448bc833801
     errors: {
       // email: "",
       // password: ""
